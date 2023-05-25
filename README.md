@@ -8,7 +8,7 @@
 	
 </div>
 
-Efficient language detector (*Nito-ELD* or *ELD*) is a fast and accurate language detector, written in an interpreted programming language, with a speed comparable to a fast C++ compiled software* (* in PHP), and accuracy within the range of the heaviest and slowest detectors.
+Efficient language detector (Nito-ELD or ELD) is a fast and accurate language detector, is one of the fastest non compiled detectors, while its accuracy is within the range of the heaviest and slowest detectors.
 
 It's 100% Python, easy installation and no dependencies other than `regex`.  
 ELD is also avalible in [Javascript](https://github.com/nitotm/efficient-language-detector-js/) and [PHP](https://github.com/nitotm/efficient-language-detector/).

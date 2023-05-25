@@ -55,7 +55,6 @@ print(detector.detect('How are you? Bien, gracias'))
 # {'language': 'en', 'scores': {'en': 0.32, 'es': 0.31, ...}}
 ```
 
-
 - To reduce the languages to be detected, there are 3 different options, they only need to be executed once. (Check available [languages](#languages) below)
 ```python
 langs_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']

@@ -133,7 +133,7 @@ I added *ELD-L* for comparison, which has a 2.3x bigger database, but only incre
 
 Here is the average, per test, of Tweets, Big test & Sentences.
 
-![Sentences tests average](https://raw.githubusercontent.com/nitotm/efficient-language-detector/main/benchmarks/sentences_avg_py.png)
+![Sentences tests average](https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/sentences_avg_py.png)
 <!--- Sentences average
 |                     | Time         | Accuracy     |
 |:--------------------|:------------:|:------------:|

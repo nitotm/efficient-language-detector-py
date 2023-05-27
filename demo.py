@@ -15,7 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from src.languageDetector import LanguageDetector
+from src.eld.languageDetector import LanguageDetector
+#from eld import LanguageDetector
 
 detector = LanguageDetector()
 

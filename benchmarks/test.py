@@ -4,7 +4,8 @@ import sys
 
 sys.path.append('..')
 
-from src.languageDetector import LanguageDetector
+from src.eld.languageDetector import LanguageDetector
+#from eld import LanguageDetector
 
 langDetect = LanguageDetector()
 files = ['tweets.txt', 'big-test.txt', 'sentences.txt', 'word-pairs.txt', 'single-words.txt']

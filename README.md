@@ -70,7 +70,7 @@ detector.dynamic_langs_subset(langs_subset)
 detector.langs_subset(langs_subset) # langs_subset(langs, save=True) 
 
 # To remove either dynamic_langs_subset() or langs_subset(), call the methods with False as argument
-detector.langs_subset(False); 
+detector.langs_subset(False)
 
 # Finally the fastest way to regularly use a languages subset: we create the instance with a file
 # The file in the argument can be a subset by langs_subset() or another database like ngrams_L.php

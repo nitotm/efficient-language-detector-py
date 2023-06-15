@@ -16,16 +16,16 @@ limitations under the License.
 """
 
 from src.eld.languageDetector import LanguageDetector
-#from eld import LanguageDetector
+# from eld import LanguageDetector
 
 detector = LanguageDetector()
 
-# detect() expects an UTF-8 string, and returns a dictionary, with a value named 'language', which will be either an ISO 639-1 code or false
+# detect() expects a UTF-8 string, and returns a dictionary, with key 'language', value: ISO 639-1 code or false
 print(detector.detect('Hola, cómo te llamas?'))
 # {'language': 'es'}
 # {'language': False, 'error': 'Some error', 'scores': {}}
 
-# To get the best guess, deactivating minimum length, confidence threshold and also for benchmarking.
+# To get the best guess, turn off minimum length and confidence threshold; also used for benchmarking.
 print(detector.detect('To', False, False, 0, 1))
 
 # To improve readability Named Parameters can be used
@@ -44,27 +44,26 @@ print(detector.detect('How are you? Bien, gracias'))
  'or', 'pa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yo',
  'zh']
 """
-langs_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
+lang_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
 
-# dynamic_langs_subset() Will execute the detector normally, but at the end will filter the excluded languages.
-detector.dynamic_langs_subset(langs_subset)
+# dynamic_lang_subset() Will execute the detector normally, but at the end will filter the excluded languages.
+detector.dynamic_lang_subset(lang_subset)
 
 # to remove the subset
-detector.dynamic_langs_subset(False)
+detector.dynamic_lang_subset(False)
 
-""" langs_subset(langs,save=True) Will previously remove the excluded languages form the Ngrams database; for a single
- detection might be slower than dynamic_langs_subset(), but for several strings will be faster. If save option is true
+""" lang_subset(langs,save=True) Will previously remove the excluded languages form the Ngrams database; for a single
+ detection might be slower than dynamic_lang_subset(), but for several strings will be faster. If save option is true
 (default), the new ngrams subset will be stored, and loaded for the same languages subset, increasing startup speed
 """
-detector.langs_subset(langs_subset)
+detector.lang_subset(lang_subset)
 
 # to remove the subset
-detector.langs_subset(False)
+detector.lang_subset(False)
 
-""" Finally the fastest option to regularly use the same languages subset, will be to add as an argument the file 
-   stored by langs_subset(), when creating an instance of the class. In this case the subset Ngrams database will
+""" Finally the fastest option to regularly use the same language subset, will be to add as an argument the file 
+   stored by lang_subset(), when creating an instance of the class. In this case the subset Ngrams database will
    be loaded directly, and not the default database. Also, you can use this option to load different ngram databases
-	stored at src/ngrams/
+   stored at src/ngrams/
 """
 langSubsetDetect = LanguageDetector('ngrams_2f37045c74780aba1d36d6717f3244dc025fb935')
-

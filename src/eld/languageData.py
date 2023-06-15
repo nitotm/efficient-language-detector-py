@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import importlib
+import importlib.util
 import os
 
 
-class LanguagesData:
+class LanguageData:
     def __init__(self):
         self.ngrams = None
         # ISO 639-1 codes
@@ -28,7 +28,7 @@ class LanguagesData:
                           'ku', 'lo', 'lt', 'lv', 'ml', 'mr', 'ms', 'nl', 'no', 'or', 'pa', 'pl', 'pt', 'ro', 'ru',
                           'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yo', 'zh']
         """ 
-			['Amharic', 'Arabic', 'Azerbaijani (Latin)', 'Belarusian', 'Bulgarian', 'Bengali', 'Catalan', 'Czech',
+         ['Amharic', 'Arabic', 'Azerbaijani (Latin)', 'Belarusian', 'Bulgarian', 'Bengali', 'Catalan', 'Czech',
          'Danish', 'German', 'Greek', 'English', 'Spanish', 'Estonian', 'Basque', 'Persian', 'Finnish', 'French',
          'Gujarati', 'Hebrew', 'Hindi', 'Croatian', 'Hungarian', 'Armenian', 'Icelandic', 'Italian', 'Japanese',
          'Georgian', 'Kannada', 'Korean', 'Kurdish (Arabic)', 'Lao', 'Lithuanian', 'Latvian', 'Malayalam', 'Marathi',
@@ -57,12 +57,12 @@ class LanguagesData:
             from .ngrams.ngrams_m import ngrams
             self.ngrams = ngrams
         else:
-            #module = importlib.import_module('.ngrams.' + subset_file)
-            file_path = os.path.dirname(__file__)+'/ngrams/' + subset_file + '.py'
+            # module = importlib.import_module('.ngrams.' + subset_file)
+            file_path = os.path.dirname(__file__) + '/ngrams/' + subset_file + '.py'
             spec = importlib.util.spec_from_file_location(subset_file, file_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
             self.ngrams = module.ngrams
 
 
-languagesData = LanguagesData()
+languageData = LanguageData()

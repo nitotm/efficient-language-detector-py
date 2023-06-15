@@ -4,14 +4,14 @@
 	
 ![supported Python versions](https://img.shields.io/badge/Python-%3E%3D%203.7-blue)
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![supported languages](https://img.shields.io/badge/supported%20languages-60-green.svg)](#languages)
+[![supported languages](https://img.shields.io/badge/supported%20languages-60-brightgreen.svg)](#languages)
 	
 </div>
 
-Efficient language detector (Nito-ELD or ELD) is a fast and accurate language detector, is one of the fastest non compiled detectors, while its accuracy is within the range of the heaviest and slowest detectors.
+Efficient language detector (*Nito-ELD* or *ELD*) is a fast and accurate language detector, is one of the fastest non compiled detectors, while its accuracy is within the range of the heaviest and slowest detectors.
 
 It's 100% Python, easy installation and no dependencies other than `regex`.  
-ELD is also avalible in [Javascript](https://github.com/nitotm/efficient-language-detector-js/) and [PHP](https://github.com/nitotm/efficient-language-detector/).
+ELD is also available in [Javascript](https://github.com/nitotm/efficient-language-detector-js) and [PHP](https://github.com/nitotm/efficient-language-detector).
 
 > This is the first version of a port made from the original version in PHP, the structure might not be definitive, the code can be optimized. My knowledge of Python is basic, feel free to suggest improvements.
 
@@ -36,13 +36,13 @@ detector = LanguageDetector()
 
 print(detector.detect('Hola, cómo te llamas?'))
 ```
-`detect()` expects an UTF-8 string, and returns a list, with a value named 'language', which will be either an *ISO 639-1 code* or `False`
+`detect()` expects a UTF-8 string, and returns a list, with a value named 'language', which will be either an *ISO 639-1 code* or `False`
 ```
 {'language': 'es'}
 {'language': False, 'error': 'Some error', 'scores': {}}
 ```
 
-- To get the best guess, deactive minimum length & confidence threshold; used for benchmarking.
+- To get the best guess, turn off minimum length & confidence threshold; also used for benchmarking.
 ```python
 print(detector.detect('To', False, False, 0, 1))
 # To improve readability Named Parameters can be used
@@ -59,21 +59,21 @@ print(detector.detect('How are you? Bien, gracias'))
 
 - To reduce the languages to be detected, there are 3 different options, they only need to be executed once. (Check available [languages](#languages) below)
 ```python
-langs_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
+lang_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
 
-# with dynamic_langs_subset() the detector executes normally, and then filters excluded languages
-detector.dynamic_langs_subset(langs_subset)
+# with dynamic_lang_subset() the detector executes normally, and then filters excluded languages
+detector.dynamic_lang_subset(lang_subset)
 
-# langs_subset() Will first remove the excluded languages, from the n-grams database
-# For a single detection is slower than dynamic_langs_subset(), but for several will be faster
+# lang_subset() Will first remove the excluded languages, from the n-grams database
+# For a single detection is slower than dynamic_lang_subset(), but for several will be faster
 # If save option is true (default), the new Ngrams subset will be stored, and loaded next call
-detector.langs_subset(langs_subset) # langs_subset(langs, save=True) 
+detector.lang_subset(lang_subset) # lang_subset(langs, save=True) 
 
-# To remove either dynamic_langs_subset() or langs_subset(), call the methods with False as argument
-detector.langs_subset(False); 
+# To remove either dynamic_lang_subset() or lang_subset(), call the methods with False as argument
+detector.lang_subset(False)
 
 # Finally the fastest way to regularly use a languages subset: we create the instance with a file
-# The file in the argument can be a subset by langs_subset() or another database like ngrams_L.php
+# The file in the argument can be a subset by lang_subset() or another database like ngrams_L.php
 langSubsetDetect = LanguageDetector('ngrams_2f37045c74780aba1d36d6717f3244dc025fb935')
 ```
 
@@ -81,16 +81,16 @@ langSubsetDetect = LanguageDetector('ngrams_2f37045c74780aba1d36d6717f3244dc025f
 
 I compared *ELD* with a different variety of detectors, since the interesting part is the algorithm.
 
-| URL                                                       | Version       | Language     |
-| :-                                                        | :-            | :-           |
-| https://github.com/nitotm/efficient-language-detector-py/ | 0.9.0         | Python       |
-| https://github.com/nitotm/efficient-language-detector/    | 1.0.0         | PHP          |
-| https://github.com/pemistahl/lingua-py                    | 1.3.2         | Python       |
-| https://github.com/CLD2Owners/cld2                        | Aug 21, 2015  | C++          |
-| https://github.com/google/cld3                            | Aug 28, 2020  | C++          |
-| https://github.com/wooorm/franc                           | 6.1.0         | Javasript    |
+| URL                                                       | Version      | Language   |
+|:----------------------------------------------------------|:-------------|:-----------|
+| https://github.com/nitotm/efficient-language-detector-py/ | 0.9.0        | Python     |
+| https://github.com/nitotm/efficient-language-detector/    | 1.0.0        | PHP        |
+| https://github.com/pemistahl/lingua-py                    | 1.3.2        | Python     |
+| https://github.com/CLD2Owners/cld2                        | Aug 21, 2015 | C++        |
+| https://github.com/google/cld3                            | Aug 28, 2020 | C++        |
+| https://github.com/wooorm/franc                           | 6.1.0        | Javascript |
 
-Tests: **Tweets**: *760KB*, short sentences of 140 chars max.; **Big test**: *10MB*, sentences in all 60 languages supported; **Sentences**: *8MB*, this is the *Lingua* sentences test, minus unsupported languages.  
+Benchmarks: **Tweets**: *760KB*, short sentences of 140 chars max.; **Big test**: *10MB*, sentences in all 60 languages supported; **Sentences**: *8MB*, this is the *Lingua* sentences test, minus unsupported languages.  
 Short sentences is what *ELD* and most detectors focus on, as very short text is unreliable, but I included the *Lingua* **Word pairs** *1.5MB*, and **Single words** *880KB* tests to see how they all compare beyond their reliable limits.
 
 These are the results, first, accuracy and then execution time.
@@ -106,7 +106,7 @@ These are the results, first, accuracy and then execution time.
 | **CLD3**            | 92.2%        | 95.8%        | 94.7%        | 69.0%        | 51.5%        |
 | **franc**           | 89.8%        | 92.0%        | 90.5%        | 65.9%        | 52.9%        |
 -->
-<img width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_accuracy_py.svg">
+<img alt="accuracy table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_accuracy_py.svg">
 
 <!--- Time table
 |                     | Tweets       | Big test     | Sentences    | Word pairs   | Single words |
@@ -120,20 +120,20 @@ These are the results, first, accuracy and then execution time.
 | **franc**           |     1.2"     |      8"      |      7.8"    |     2.8"     |     2"       |
 | **Nito-ELD-php**    |     0.31"    |      2.5"    |      2.2"    |     0.66"    |     0.48"    |
 -->
-<img width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_time_py.svg">
+<img alt="time table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_time_py.svg">
 
 <sup style="color:#08e">1.</sup> <sup style="color:#777">Lingua could have a small advantage as it participates with 54 languages, 6 less.</sup>  
 <sup style="color:#08e">2.</sup> <sup style="color:#777">CLD2 and CLD3, return a list of languages, the ones not included in this test where discarded, but usually they return one language, I believe they have a disadvantage. 
 Also, I confirm the results of CLD2 for short text are correct, contrary to the test on the *Lingua* page, they did not use the parameter "bestEffort = True", their benchmark for CLD2 is unfair.
 
 *Lingua* is the average accuracy winner, but at what cost, the same test that in *ELD* or *CLD2* is below 10 seconds, in Lingua takes more than 5 hours! It acts like a brute-force software. 
-Also its lead comes from single and pair words, which are unreliable regardless.
+Also, its lead comes from single and pair words, which are unreliable regardless.
 
 The Python version of *NITO-ELD* is not the fastest but is still considered fast, as it is faster than any other non compiled detector tested.
 
 I added *ELD-L* for comparison, which has a 2.3x bigger database, but only increases execution time marginally, a testament to the efficiency of the algorithm. *ELD-L* is not the main database as it does not improve language detection in sentences.
 
-Here is the average, per test, of Tweets, Big test & Sentences.
+Here is the average, per benchmark, of Tweets, Big test & Sentences.
 
 ![Sentences tests average](https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/sentences_avg_py.png)
 <!--- Sentences average
@@ -165,4 +165,5 @@ Full name languages:
 - Train from bigger datasets, and more languages.
 - The tokenizer could separate characters from languages that have their own alphabet, potentially improving accuracy and reducing the N-grams database. Retraining and testing is needed.
 
+**Donate / Hire**   
 If you wish to Donate for open source improvements, Hire me for private modifications / upgrades, or to Contact me, use the following link: https://linktr.ee/nitotm

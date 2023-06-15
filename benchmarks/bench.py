@@ -1,11 +1,10 @@
-import os
 import time
 import sys
 
 sys.path.append('..')
 
 from src.eld.languageDetector import LanguageDetector
-#from eld import LanguageDetector
+# from eld import LanguageDetector
 
 langDetect = LanguageDetector()
 files = ['tweets.txt', 'big-test.txt', 'sentences.txt', 'word-pairs.txt', 'single-words.txt']

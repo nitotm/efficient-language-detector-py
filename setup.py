@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="eld",
-    version="0.9.0",
+    version="0.9.1",
     author="Nito T.M.",
     #    author_email = "",
     description="Fast and accurate natural language detection. Detector written in Python. Nito-ELD, ELD.",
@@ -20,7 +20,17 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    data_files=[('', ['demo.py'])],
+    data_files=[('', ['demo.py']),
+                ('benchmarks',
+                 ['benchmarks/bench.py',
+                  'benchmarks/big-test.txt',
+                  'benchmarks/sentences.txt',
+                  'benchmarks/sentences_avg_py.png',
+                  'benchmarks/single-words.txt',
+                  'benchmarks/table_accuracy_py.svg',
+                  'benchmarks/table_time_py.svg',
+                  'benchmarks/tweets.txt',
+                  'benchmarks/word-pairs.txt'])],
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.7"
 )

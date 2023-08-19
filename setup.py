@@ -5,9 +5,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="eld",
-    version="0.9.1",
+    version="1.0.3",  # Update VERSION at languageDetector.py too
     author="Nito T.M.",
-    #    author_email = "",
+    # author_email = "",
     description="Fast and accurate natural language detection. Detector written in Python. Nito-ELD, ELD.",
     keywords='nlp language natural-language-processing natural-language language-detection language-detector language-identification',
     long_description=long_description,
@@ -19,18 +19,9 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "src"},
-    data_files=[('', ['demo.py']),
-                ('benchmarks',
-                 ['benchmarks/bench.py',
-                  'benchmarks/big-test.txt',
-                  'benchmarks/sentences.txt',
-                  'benchmarks/sentences_avg_py.png',
-                  'benchmarks/single-words.txt',
-                  'benchmarks/table_accuracy_py.svg',
-                  'benchmarks/table_time_py.svg',
-                  'benchmarks/tweets.txt',
-                  'benchmarks/word-pairs.txt'])],
-    packages=setuptools.find_packages(where="src"),
+    # package_dir={'': 'eld'},
+    # packages=setuptools.find_packages(where='eld'),
+    packages=['eld', 'eld.tests', 'eld.resources', 'eld.resources.ngrams', 'eld.resources.ngrams.subset'],
+	 package_data={'eld.tests': ['data/*.txt']},
     python_requires=">=3.7"
 )

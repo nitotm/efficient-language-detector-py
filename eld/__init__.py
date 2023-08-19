@@ -1,0 +1,1 @@
+from .languageDetector import LanguageDetector

@@ -25,56 +25,47 @@ ELD is also available in [Javascript](https://github.com/nitotm/efficient-langua
 ```bash
 $ pip install eld
 ```
-Alternatively, download / clone the files will work just fine.
+Alternatively, download / clone the files can work too, by changing the import path.
 
 ## How to use?
 
 ```python
-# from src.eld.languageDetector import LanguageDetector # To load ELD without install. Update path.
 from eld import LanguageDetector
 detector = LanguageDetector()
-
+```
+`detect()` expects a UTF-8 string, and returns an object, with a 'language' variable, which is either an *ISO 639-1 code* or `None`
+```python
 print(detector.detect('Hola, cómo te llamas?'))
-```
-`detect()` expects a UTF-8 string, and returns a list, with a value named 'language', which will be either an *ISO 639-1 code* or `False`
-```
-{'language': 'es'}
-{'language': False, 'error': 'Some error', 'scores': {}}
-```
+# Object { language: "es", scores(): {"es": 0.53, "et": 0.21, ...}, is_reliable(): True }
+# Object { language: None|str, scores(): None|dict, is_reliable(): bool }
 
-- To get the best guess, turn off minimum length & confidence threshold; also used for benchmarking.
-```python
-print(detector.detect('To', False, False, 0, 1))
-# To improve readability Named Parameters can be used
-detector.detect(text='To', clean_text=False, check_confidence=False, min_byte_length=0, min_ngrams=1)
-# clean_text=True, Removes Urls, domains, emails, alphanumerical & numbers
-```
+print(detector.detect('Hola, cómo te llamas?').language)
+# "es"
 
-- To retrieve the scores of all languages detected, we will set `return_scores` to `True`, just once
-```python
-detector.return_scores = True
-print(detector.detect('How are you? Bien, gracias'))
-# {'language': 'en', 'scores': {'en': 0.32, 'es': 0.31, ...}}
+# if clean_text(True), detect() removes Urls, domains, emails, alphanumerical & numbers
+detector.clean_text(True)  # Default is False
 ```
-
 - To reduce the languages to be detected, there are 3 different options, they only need to be executed once. (Check available [languages](#languages) below)
 ```python
 lang_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
 
-# with dynamic_lang_subset() the detector executes normally, and then filters excluded languages
+# Option 1
+# with dynamic_lang_subset(), detect() executes normally, and then filters excluded languages
 detector.dynamic_lang_subset(lang_subset)
+# Returns an object with a list named 'languages', with the validated languages or 'None'
 
-# lang_subset() Will first remove the excluded languages, from the n-grams database
+# Option 2. lang_subset() Will first remove the excluded languages, from the n-grams database
 # For a single detection is slower than dynamic_lang_subset(), but for several will be faster
 # If save option is true (default), the new Ngrams subset will be stored, and loaded next call
 detector.lang_subset(lang_subset) # lang_subset(langs, save=True) 
+# Returns object {success: True, languages: ['de', 'en', ...], error: None, file: 'ngramsM60...'}
 
-# To remove either dynamic_lang_subset() or lang_subset(), call the methods with False as argument
-detector.lang_subset(False)
+# To remove either dynamic_lang_subset() or lang_subset(), call the methods with None as argument
+detector.lang_subset(None)
 
-# Finally the fastest way to regularly use a languages subset: we create the instance with a file
-# The file in the argument can be a subset by lang_subset() or another database like ngrams_L.php
-langSubsetDetect = LanguageDetector('ngrams_2f37045c74780aba1d36d6717f3244dc025fb935')
+# Finally the optimal way to regularly use a languages subset: we create the instance with a file
+# The file in the argument can be a subset by lang_subset() or another database like 'ngramsL60'
+langSubsetDetect = LanguageDetector('ngramsL60')
 ```
 
 ## Benchmarks
@@ -106,7 +97,7 @@ These are the results, first, accuracy and then execution time.
 | **CLD3**            | 92.2%        | 95.8%        | 94.7%        | 69.0%        | 51.5%        |
 | **franc**           | 89.8%        | 92.0%        | 90.5%        | 65.9%        | 52.9%        |
 -->
-<img alt="accuracy table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_accuracy_py.svg">
+<img alt="accuracy table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/misc/table_accuracy_py.svg">
 
 <!--- Time table
 |                     | Tweets       | Big test     | Sentences    | Word pairs   | Single words |
@@ -120,7 +111,7 @@ These are the results, first, accuracy and then execution time.
 | **franc**           |     1.2"     |      8"      |      7.8"    |     2.8"     |     2"       |
 | **Nito-ELD-php**    |     0.31"    |      2.5"    |      2.2"    |     0.66"    |     0.48"    |
 -->
-<img alt="time table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/table_time_py.svg">
+<img alt="time table" width="800" src="https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/misc/table_time_py.svg">
 
 <sup style="color:#08e">1.</sup> <sup style="color:#777">Lingua could have a small advantage as it participates with 54 languages, 6 less.</sup>  
 <sup style="color:#08e">2.</sup> <sup style="color:#777">CLD2 and CLD3, return a list of languages, the ones not included in this test where discarded, but usually they return one language, I believe they have a disadvantage. 
@@ -135,7 +126,7 @@ I added *ELD-L* for comparison, which has a 2.3x bigger database, but only incre
 
 Here is the average, per benchmark, of Tweets, Big test & Sentences.
 
-![Sentences tests average](https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/benchmarks/sentences_avg_py.png)
+![Sentences tests average](https://raw.githubusercontent.com/nitotm/efficient-language-detector-py/main/misc/sentences_avg_py.png)
 <!--- Sentences average
 |                     | Time         | Accuracy     |
 |:--------------------|:------------:|:------------:|
@@ -154,11 +145,9 @@ These are the *ISO 639-1 codes* of the 60 supported languages for *Nito-ELD* v1
 
 > 'am', 'ar', 'az', 'be', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gu', 'he', 'hi', 'hr', 'hu', 'hy', 'is', 'it', 'ja', 'ka', 'kn', 'ko', 'ku', 'lo', 'lt', 'lv', 'ml', 'mr', 'ms', 'nl', 'no', 'or', 'pa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yo', 'zh'
 
-
 Full name languages:
 
-> 'Amharic', 'Arabic', 'Azerbaijani (Latin)', 'Belarusian', 'Bulgarian', 'Bengali', 'Catalan', 'Czech', 'Danish', 'German', 'Greek', 'English', 'Spanish', 'Estonian', 'Basque', 'Persian', 'Finnish', 'French', 'Gujarati', 'Hebrew', 'Hindi', 'Croatian', 'Hungarian', 'Armenian', 'Icelandic', 'Italian', 'Japanese', 'Georgian', 'Kannada', 'Korean', 'Kurdish (Arabic)', 'Lao', 'Lithuanian', 'Latvian', 'Malayalam', 'Marathi', 'Malay (Latin)', 'Dutch', 'Norwegian', 'Oriya', 'Punjabi', 'Polish', 'Portuguese', 'Romanian', 'Russian', 'Slovak', 'Slovene', 'Albanian', 'Serbian (Cyrillic)', 'Swedish', 'Tamil', 'Telugu', 'Thai', 'Tagalog', 'Turkish', 'Ukrainian', 'Urdu', 'Vietnamese', 'Yoruba', 'Chinese'
-
+> Amharic, Arabic, Azerbaijani (Latin), Belarusian, Bulgarian, Bengali, Catalan, Czech, Danish, German, Greek, English, Spanish, Estonian, Basque, Persian, Finnish, French, Gujarati, Hebrew, Hindi, Croatian, Hungarian, Armenian, Icelandic, Italian, Japanese, Georgian, Kannada, Korean, Kurdish (Arabic), Lao, Lithuanian, Latvian, Malayalam, Marathi, Malay (Latin), Dutch, Norwegian, Oriya, Punjabi, Polish, Portuguese, Romanian, Russian, Slovak, Slovene, Albanian, Serbian (Cyrillic), Swedish, Tamil, Telugu, Thai, Tagalog, Turkish, Ukrainian, Urdu, Vietnamese, Yoruba, Chinese
 
 ## Future improvements
 

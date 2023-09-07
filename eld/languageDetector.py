@@ -15,7 +15,7 @@ class LanguageDetector(LanguageSubset):
         super().__init__()
         languageData.load_ngrams(subset_file)
         self.__do_clean_text = False
-        self.VERSION = '1.0.5'  # Has to match setup.py version
+        self.VERSION = '1.0.6'  # Has to match setup.py version
 
     def detect(self, text):
         """

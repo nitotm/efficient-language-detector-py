@@ -1,1 +1,1 @@
-from .languageDetector import LanguageDetector
+from eld.languageDetector import LanguageDetector

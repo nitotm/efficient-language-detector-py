@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "eld"
-version = "1.0.4"
+version = "1.0.5"
 # Update VERSION at languageDetector.py too
 authors = ["Nito T.M."]
 description = "Fast and accurate natural language detection. Detector written in Python. Nito-ELD, ELD."

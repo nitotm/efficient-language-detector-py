@@ -68,7 +68,8 @@ def test_load_ngrams_detect():
 def test_accuracy_m_bigtest():
     # TODO use importlib or pathlib to open txt file as package eld.tests.data resource
     detector = LanguageDetector('ngramsM60')
-    file = open('data/big-test.txt', encoding='utf-8')  # '../../benchmark/big-test.txt'
+    file = open( os.path.dirname(__file__) + '/data/big-test.txt', encoding='utf-8')
+    # '../../benchmark/big-test.txt'
     content = file.read()
     file.close()
     lines = content.strip().split("\n")

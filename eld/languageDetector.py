@@ -1,25 +1,13 @@
-"""
-Copyright 2023 Nito T.M.
-Author URL: https://github.com/nitotm
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
+# Copyright 2023 Nito T.M.
+# License https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
+# Author Nito T.M. (https://github.com/nitotm)
+# Package pypi.org/project/eld/
 
 import regex as re
 
-from .languageData import languageData
-from .languageSubset import LanguageSubset
-from .languageResult import LanguageResult
+from eld.languageData import languageData
+from eld.languageSubset import LanguageSubset
+from eld.languageResult import LanguageResult
 
 
 class LanguageDetector(LanguageSubset):
@@ -29,12 +17,17 @@ class LanguageDetector(LanguageSubset):
         self.__do_clean_text = False
         self.VERSION = '1.0.3'  # Has to match setup.py version
 
-    """
-    Returns the language detected for a given UTF-8 string, as an ISO 639-1 code
-     LanguageResult object { language = 'es', scores() = {'es': 0.5, 'et': 0.2}, is_reliable() = True }
-     LanguageResult object { language = None|str, scores() = None|dict, is_reliable() = bool }
-    """
     def detect(self, text):
+        """
+        Returns the language detected for a given UTF-8 string, as an ISO 639-1 code
+            LanguageResult object { language = 'es', scores() = {'es': 0.5, 'et': 0.2}, is_reliable() = True }
+
+        Args:
+            text (str): UTF-8 string
+
+        Returns:
+            object LanguageResult: language (str or None), scores() (dict or None), is_reliable() (bool)
+        """
         if self.__do_clean_text:
             # Removes Urls, emails, alphanumerical & numbers
             text = get_clean_txt(text)
@@ -58,8 +51,8 @@ def _tokenizer(txt):
     return filter(None, re.split(b'\x20', txt))
 
 
-# Removes parts of a string, that may be considered as "noise" for language detection
 def get_clean_txt(txt):
+    """Removes parts of a string, that may be considered as "noise" for language detection"""
     # Remove URLS
     txt = re.sub(r'[hw]((ttps?://(www\.)?)|ww\.)([^\s/?\.#-]+\.?)+(\/\S*)?', ' ', txt, flags=re.IGNORECASE)
     # Remove emails
@@ -72,7 +65,7 @@ def get_clean_txt(txt):
 
 
 def _normalize_text(text):
-    # Normalize special characters/word separators
+    """Normalize special characters/word separators"""
     text = re.sub(r'[^\pL]+(?<![\x27\x60\x2019])', ' ', text[:1000], flags=re.UNICODE).strip()
     text = text.lower()
     text = bytes(text, 'utf-8')
@@ -84,8 +77,8 @@ def _normalize_text(text):
     return text
 
 
-# Calculate scores for each language from the given Ngrams
 def _calculate_scores(txt_ngrams, num_ngrams):
+    """Calculate scores for each language from the given Ngrams"""
     lang_score = languageData.lang_score[:]
     for bytes_, frequency in txt_ngrams.items():
         if bytes_ in languageData.ngrams:
@@ -99,9 +92,9 @@ def _calculate_scores(txt_ngrams, num_ngrams):
                 relevancy = 1
 
             # Most time-consuming loop, do only the strictly necessary inside
-            for lang, globalFrequency in languageData.ngrams[bytes_].items():
-                lang_score[lang] += (globalFrequency / frequency if frequency > globalFrequency
-                                     else frequency / globalFrequency) * relevancy + 2
+            for lang, global_frequency in languageData.ngrams[bytes_].items():
+                lang_score[lang] += (global_frequency / frequency if frequency > global_frequency
+                                     else frequency / global_frequency) * relevancy + 2
     # This divisor will produce a final score between 0 - ~1, score could be >1. Can be improved.
     result_divisor = num_ngrams * 3.2
     results = []
@@ -111,8 +104,8 @@ def _calculate_scores(txt_ngrams, num_ngrams):
     return results
 
 
-# Gets Ngrams from a given string.
 def _get_byte_ngrams(txt):
+    """Gets Ngrams from a given string"""
     byte_grams = {}
     count_ngrams = 0
 

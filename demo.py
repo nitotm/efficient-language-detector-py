@@ -1,19 +1,8 @@
-"""
-Copyright 2023 Nito T.M.
-Author URL: https://github.com/nitotm
+# Copyright 2023 Nito T.M.
+# License https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
+# Author Nito T.M. (https://github.com/nitotm)
+# Package pypi.org/project/eld/
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
 from eld import LanguageDetector
 
 detector = LanguageDetector()
@@ -30,11 +19,11 @@ detector.clean_text(True)  # Default is False
 
 # To reduce the languages to be detected, there are 3 different options, they only need to be executed once.
 # This is the complete list on languages for ELD v1, using ISO 639-1 codes:
-""" ['am', 'ar', 'az', 'be', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gu',
- 'he', 'hi', 'hr', 'hu', 'hy', 'is', 'it', 'ja', 'ka', 'kn', 'ko', 'ku', 'lo', 'lt', 'lv', 'ml', 'mr', 'ms', 'nl', 'no',
- 'or', 'pa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yo',
- 'zh']
-"""
+# ['am', 'ar', 'az', 'be', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gu',
+# 'he', 'hi', 'hr', 'hu', 'hy', 'is', 'it', 'ja', 'ka', 'kn', 'ko', 'ku', 'lo', 'lt', 'lv', 'ml', 'mr', 'ms', 'nl',
+# 'no', 'or', 'pa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur',
+# 'vi', 'yo', 'zh']
+
 lang_subset = ['en', 'es', 'fr', 'it', 'nl', 'de']
 
 # Option 1. With dynamic_lang_subset(), detect() executes normally, but at the end will filter the excluded languages.
@@ -44,10 +33,9 @@ detector.dynamic_lang_subset(lang_subset)
 # to remove the subset
 detector.dynamic_lang_subset(None)
 
-""" Option 2. lang_subset(langs,save=True) Will previously remove the excluded languages form the Ngrams database; for 
- a single detection might be slower than dynamic_lang_subset(), but for several strings will be faster. If 'save' option
- is true (default), the new ngrams subset will be stored and cached for next time.
-"""
+# Option 2. lang_subset(langs,save=True) Will previously remove the excluded languages form the Ngrams database; for
+# a single detection might be slower than dynamic_lang_subset(), but for several strings will be faster. If 'save'
+# option is true (default), the new ngrams subset will be stored and cached for next time.
 detector.lang_subset(lang_subset)
 # Returns object {success: True, languages: ['de', 'en', ...], error: None, file: 'ngramsM60...'}
 
@@ -56,9 +44,8 @@ detector.lang_subset(None)
 
 print(detector.VERSION)
 
-""" Finally the optimal way to regularly use the same language subset, will be to add as an argument the file stored 
-   (and returned) by lang_subset(), when creating an instance of the class. In this case the subset Ngrams database will
-   be loaded directly, and not the default database. Also, you can use this option to load different ngram databases
-   stored at eld/resources/ngrams
-"""
+# Finally the optimal way to regularly use the same language subset, will be to add as an argument the file stored
+# (and returned) by lang_subset(), when creating an instance of the class. In this case the subset Ngrams database will
+# be loaded directly, and not the default database. Also, you can use this option to load different ngram databases
+# stored at eld/resources/ngrams
 langSubsetDetect = LanguageDetector('ngramsM60-6_5ijqhj4oecs310zqtm8u9pgmd9ox2yd')

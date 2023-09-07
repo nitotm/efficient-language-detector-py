@@ -1,19 +1,7 @@
-"""
-Copyright 2023 Nito T.M.
-Author URL: https://github.com/nitotm
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
+# Copyright 2023 Nito T.M.
+# License https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
+# Author Nito T.M. (https://github.com/nitotm)
+# Package pypi.org/project/eld/
 
 avg_score = {'am': 0.0661, 'ar': 0.0237, 'az': 0.0269, 'be': 0.0227, 'bg': 0.0234, 'bn': 0.1373, 'ca': 0.0246,
              'cs': 0.0242, 'da': 0.0277, 'de': 0.0275, 'el': 0.0369, 'en': 0.0378, 'es': 0.0252, 'et': 0.0253,
@@ -25,9 +13,8 @@ avg_score = {'am': 0.0661, 'ar': 0.0237, 'az': 0.0269, 'be': 0.0227, 'bg': 0.023
              'sv': 0.033, 'ta': 0.1513, 'te': 0.1547, 'th': 0.0882, 'tl': 0.0368, 'tr': 0.0258, 'uk': 0.0206,
              'ur': 0.0282, 'vi': 0.0467, 'yo': 0.0329, 'zh': 0.0152}
 
-""" Deprecated for now: Some languages score higher with the same amount of text, this multiplier evens it out
- for multi-language strings
-self.scoreNormalizer = [0.7, 1, 1, 1, 1, 0.6, 0.98, 1, 1, 1, 0.9, 1, 1, 1, 1, 1, 1, 1, 0.6, 1, 0.7, 1, 1, 0.9,
- 1, 1, 0.8, 0.6, 0.6, 1, 1, 0.5, 1, 1, 0.6, 0.7, 1, 0.95, 1, 0.6, 0.6, 1, 1, 1, 1, 1, 1, 0.9, 1, 1, 0.6, 0.6,
- 0.7, 0.9, 1, 1, 1, 0.8, 1, 1.7]
-"""
+# Deprecated for now: Some languages score higher with the same amount of text, this multiplier evens it out for
+#  multi-language strings
+# self.scoreNormalizer = [0.7, 1, 1, 1, 1, 0.6, 0.98, 1, 1, 1, 0.9, 1, 1, 1, 1, 1, 1, 1, 0.6, 1, 0.7, 1, 1, 0.9, 1, 1,
+# 0.8, 0.6, 0.6, 1, 1, 0.5, 1, 1, 0.6, 0.7, 1, 0.95, 1, 0.6, 0.6, 1, 1, 1, 1, 1, 1, 0.9, 1, 1, 0.6, 0.6, 0.7, 0.9, 1, 1,
+# 1, 0.8, 1, 1.7]

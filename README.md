@@ -63,7 +63,7 @@ detector.lang_subset(lang_subset) # lang_subset(langs, save=True)
 # To remove either dynamic_lang_subset() or lang_subset(), call the methods with None as argument
 detector.lang_subset(None)
 
-# Finally the optimal way to regularly use a languages subset: we create the instance with a file
+# Finally the optimal way to regularly use a language subset: we create the instance with a file
 # The file in the argument can be a subset by lang_subset() or another database like 'ngramsL60'
 langSubsetDetect = LanguageDetector('ngramsL60')
 ```

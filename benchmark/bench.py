@@ -30,10 +30,8 @@ for file in files:
 
     print(f"{file} - Correct ratio: {round((correct / total) * 100, 2)}% Time: {duration}\n")
 
-"""
-tweets.txt - Correct ratio: 99.28% Time: 0.9556999206542969
-big-test.txt - Correct ratio: 99.41% Time: 7.8356194496154785
-sentences.txt - Correct ratio: 98.77% Time: 6.7327587604522705
-word-pairs.txt - Correct ratio: 87.55% Time: 2.636420488357544
-single-words.txt - Correct ratio: 73.31% Time: 2.12335205078125
-"""
+# tweets.txt - Correct ratio: 99.28% Time: 0.9556999206542969
+# big-test.txt - Correct ratio: 99.41% Time: 7.8356194496154785
+# sentences.txt - Correct ratio: 98.77% Time: 6.7327587604522705
+# word-pairs.txt - Correct ratio: 87.55% Time: 2.636420488357544
+# single-words.txt - Correct ratio: 73.31% Time: 2.12335205078125

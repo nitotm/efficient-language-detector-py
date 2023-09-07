@@ -1,0 +1,34 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "eld"
+version = "1.0.3"
+# Update VERSION at languageDetector.py too
+authors = ["Nito T.M."]
+description = "Fast and accurate natural language detection. Detector written in Python. Nito-ELD, ELD."
+keywords = ["nlp", "language", "natural-language-processing", "natural-language", "language-detection", "language-detector", "language-identification"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/nitotm/efficient-language-detector-py/"
+repository = "https://github.com/nitotm/efficient-language-detector-py.git"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent"
+]
+packages = [
+    { include = "eld" },
+    { include = "eld/tests" },
+    { include = "eld/resources" },
+    { include = "eld/resources/ngrams" },
+    { include = "eld/resources/ngrams/subset" }
+]
+include = ["eld/resources/test/data/*.txt"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+regex = "*"
+
+# [tool.poetry.scripts]

@@ -136,6 +136,10 @@ def _save_ngrams(file_path, lang_array):
 
 
 def _make_subset(languages):
+    """
+    Validates an expected array of ISO 639-1 language code strings, given by the user, and creates a subset of the valid
+    languages compared against the current database available languages
+    """
     subset = []
     reverse_langs = {v: k for k, v in languageData.lang_codes.items()}
     if languages:

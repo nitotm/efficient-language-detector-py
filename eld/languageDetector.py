@@ -15,7 +15,7 @@ class LanguageDetector(LanguageSubset):
         super().__init__()
         languageData.load_ngrams(subset_file)
         self.__do_clean_text = False
-        self.VERSION = '1.0.6'  # Has to match setup.py version
+        self.VERSION = '1.0.7'  # Has to match pyproject.toml version
 
     def detect(self, text):
         """
@@ -32,9 +32,9 @@ class LanguageDetector(LanguageSubset):
             # Removes Urls, emails, alphanumerical & numbers
             text = get_clean_txt(text)
         text = _normalize_text(text)
-        txt_ngrams = _get_byte_ngrams(text)
-        num_ngrams = len(txt_ngrams)
-        results = _calculate_scores(txt_ngrams, num_ngrams)
+        byte_ngrams = _get_byte_ngrams(text)
+        num_ngrams = len(byte_ngrams)
+        results = _calculate_scores(byte_ngrams, num_ngrams)
 
         if results:
             if self.subset:
@@ -77,15 +77,15 @@ def _normalize_text(text):
     return text
 
 
-def _calculate_scores(txt_ngrams, num_ngrams):
+def _calculate_scores(byte_ngrams, num_ngrams):
     """Calculate scores for each language from the given Ngrams"""
     lang_score = languageData.lang_score[:]
-    for bytes_, frequency in txt_ngrams.items():
+    for bytes_, frequency in byte_ngrams.items():
         if bytes_ in languageData.ngrams:
             lang_count = len(languageData.ngrams[bytes_])
             # Ngram score multiplier, the fewer languages found the more relevancy. Formula can be fine-tuned.
             if lang_count == 1:
-                relevancy = 27
+                relevancy = 27  # Handpicked relevance multiplier, trial-error
             elif lang_count < 16:
                 relevancy = (16 - lang_count) / 2 + 1
             else:
@@ -125,7 +125,7 @@ def _get_byte_ngrams(txt):
         byte_grams[this_bytes] = (1 + byte_grams[this_bytes] if this_bytes in byte_grams else 1)
         count_ngrams += 1
 
-    # Frequency is multiplied by 15000 at the ngrams database. A reduced number seems to work better.
+    # Frequency is multiplied by 15000 at the ngrams database. A reduced number (13200) seems to work better.
     # Linear formulas were tried, decreasing the multiplier for fewer ngram strings, no meaningful improvement.
     for bytes_, count in byte_grams.items():
         byte_grams[bytes_] = count / count_ngrams * 13200

@@ -3,6 +3,7 @@
 # Author Nito T.M. (https://github.com/nitotm)
 # Package pypi.org/project/eld/
 
+# Average score of each language in a correct detection, done with an extended version of big-test benchmark.
 avg_score = {'am': 0.0661, 'ar': 0.0237, 'az': 0.0269, 'be': 0.0227, 'bg': 0.0234, 'bn': 0.1373, 'ca': 0.0246,
              'cs': 0.0242, 'da': 0.0277, 'de': 0.0275, 'el': 0.0369, 'en': 0.0378, 'es': 0.0252, 'et': 0.0253,
              'eu': 0.0369, 'fa': 0.0213, 'fi': 0.026, 'fr': 0.0253, 'gu': 0.1197, 'he': 0.0402, 'hi': 0.0578,

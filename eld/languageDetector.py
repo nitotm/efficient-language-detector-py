@@ -15,7 +15,7 @@ class LanguageDetector(LanguageSubset):
         super().__init__()
         languageData.load_ngrams(subset_file)
         self.__do_clean_text = False
-        self.VERSION = '1.0.7'  # Has to match pyproject.toml version
+        self.VERSION = '1.0.8'  # Has to match pyproject.toml version
 
     def detect(self, text):
         """
@@ -28,6 +28,8 @@ class LanguageDetector(LanguageSubset):
         Returns:
             object LanguageResult: language (str or None), scores() (dict or None), is_reliable() (bool)
         """
+        if not isinstance(text, str):
+            raise TypeError("Input 'text' must be a string.")
         if self.__do_clean_text:
             # Removes Urls, emails, alphanumerical & numbers
             text = get_clean_txt(text)

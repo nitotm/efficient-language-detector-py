@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![downloads](https://static.pepy.tech/badge/eld)
+[![downloads](https://static.pepy.tech/badge/eld)](https://pypi.org/project/eld/)
 ![supported Python versions](https://img.shields.io/badge/Python-%3E%3D%203.7-blue)
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![supported languages](https://img.shields.io/badge/supported%20languages-60-brightgreen.svg)](#languages)
